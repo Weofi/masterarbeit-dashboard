@@ -1,0 +1,4 @@
+@for (person of personData$ | async; track person.id) {
+  <app-card [person]="person"></app-card>
+}
+

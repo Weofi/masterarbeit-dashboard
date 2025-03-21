@@ -1,0 +1,28 @@
+:host {
+  box-shadow: 1px 3px 3px rgba(0, 10, 20, 0.06);
+  background-color: white;
+  display: flex;
+  padding: 1em;
+  gap: 1em;
+  border-radius: 0.25em;
+}
+
+img {
+  max-width: 3em;
+  height: fit-content;
+}
+.person-info {
+  flex-grow: 1;
+
+  p {
+    margin: 0 0 0.5em 0;
+
+    &.balance {
+      font-size: 1.5em;
+      font-weight: bold;
+      text-align: end;
+    }
+  }
+
+}
+
