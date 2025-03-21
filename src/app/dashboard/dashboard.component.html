@@ -1,4 +1,5 @@
-@for (person of personData$ | async; track person.id) {
+<input type="text" class="searchTerm" placeholder="search..." [formControl]="searchForm">
+@for (person of filteredPersonData$ | async; track person.id) {
   <app-card [person]="person"></app-card>
 }
 

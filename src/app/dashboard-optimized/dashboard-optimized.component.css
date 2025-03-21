@@ -1,5 +1,5 @@
-cdk-virtual-scroll-viewport {
-  display: grid;
+:host {
+  display: block;
   max-width: 80em;
   margin: auto;
 }

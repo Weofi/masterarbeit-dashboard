@@ -1,4 +1,5 @@
+<input type="text" class="searchTerm" placeholder="search..." [formControl]="searchForm">
 <cdk-virtual-scroll-viewport scrollWindow [itemSize]="89">
-  <app-card *cdkVirtualFor="let person of personData$ | async" [person]="person" [optimized]="true"></app-card>
+  <app-card *cdkVirtualFor="let person of filteredPersonData$ | async" [person]="person" [optimized]="true"></app-card>
 </cdk-virtual-scroll-viewport>
 

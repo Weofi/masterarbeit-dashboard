@@ -3,4 +3,15 @@ html, body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   background-color: #f0f0f0;
-}/* You can add global styles to this file, and also import other style files */
+  scrollbar-gutter: stable;
+}
+
+input {
+  margin-bottom: 1em;
+  border: 3px solid red;
+  border-radius: 0.25em;
+  padding: 5px;
+  height: 2em;
+  outline: none;
+  width: calc(100% - 16px);
+}
