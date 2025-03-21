@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Person} from '../data-service/data.service';
-import {CurrencyPipe, NgOptimizedImage} from '@angular/common';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-card',
@@ -12,4 +12,5 @@ import {CurrencyPipe, NgOptimizedImage} from '@angular/common';
 })
 export class CardComponent {
   @Input({required: true}) person!: Person;
+  @Input() optimized: boolean = false;
 }
