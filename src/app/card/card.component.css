@@ -1,4 +1,6 @@
 :host {
+  margin-bottom: 1em;
+  height: 6em;
   box-shadow: 1px 3px 3px rgba(0, 10, 20, 0.06);
   background-color: white;
   display: flex;

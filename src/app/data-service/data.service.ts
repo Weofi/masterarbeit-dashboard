@@ -18,7 +18,15 @@ export class DataService {
 
   private httpClient = inject(HttpClient);
 
-  public getAll() {
+  public get1k() {
     return this.httpClient.get<Person[]>('./MOCK_DATA.json');
+  }
+
+  public get10k() {
+    return this.httpClient.get<Person[]>('./MOCK_DATA_10000.json');
+  }
+
+  public get100k() {
+    return this.httpClient.get<Person[]>('./MOCK_DATA_100000.json');
   }
 }

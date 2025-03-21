@@ -9,6 +9,10 @@ header {
     gap: 1em;
     align-items: center;
 
+    .link-active {
+      text-decoration: underline;
+    }
+
     a {
       color: white;
       text-decoration: none;

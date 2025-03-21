@@ -1,0 +1,4 @@
+<cdk-virtual-scroll-viewport scrollWindow [itemSize]="89">
+  <app-card *cdkVirtualFor="let person of personData$ | async" [person]="person"></app-card>
+</cdk-virtual-scroll-viewport>
+

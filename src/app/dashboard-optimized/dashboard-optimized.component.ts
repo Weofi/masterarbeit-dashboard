@@ -1,19 +1,21 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
 import {DataService, Person} from '../data-service/data.service';
-import {AsyncPipe} from '@angular/common';
-import {CardComponent} from '../card/card.component';
 import {Observable} from 'rxjs';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CardComponent} from '../card/card.component';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-dashboard-optimized',
   imports: [
-    AsyncPipe,
-    CardComponent
+    ScrollingModule,
+    CardComponent,
+    AsyncPipe
   ],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  templateUrl: './dashboard-optimized.component.html',
+  styleUrl: './dashboard-optimized.component.css'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardOptimizedComponent implements OnInit {
   @Input() public dataSet: 1000 | 10_000 | 100_000 = 1000;
   private readonly dataService = inject(DataService);
 
