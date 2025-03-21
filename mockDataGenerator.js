@@ -25,6 +25,10 @@ function increaseDatasetSize(data, targetSize) {
 const data10000 = increaseDatasetSize(data, 10000);
 fs.writeFileSync('./public/MOCK_DATA_10000.json', JSON.stringify(data10000, null, 2));
 
+// Increase to 50,000 entries
+const data50000 = increaseDatasetSize(data, 50000);
+fs.writeFileSync('./public/MOCK_DATA_50000.json', JSON.stringify(data50000, null, 2));
+
 // Increase to 100,000 entries
 const data100000 = increaseDatasetSize(data, 100000);
 fs.writeFileSync('./public/MOCK_DATA_100000.json', JSON.stringify(data100000, null, 2));

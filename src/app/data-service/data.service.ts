@@ -26,7 +26,7 @@ export class DataService {
     return this.httpClient.get<Person[]>('./MOCK_DATA_10000.json');
   }
 
-  public get100k() {
-    return this.httpClient.get<Person[]>('./MOCK_DATA_100000.json');
+  public get50k() {
+    return this.httpClient.get<Person[]>('./MOCK_DATA_50000.json');
   }
 }

@@ -14,7 +14,7 @@ import {Observable} from 'rxjs';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  @Input() public dataSet: 1000 | 10_000 | 100_000 = 1000;
+  @Input() public dataSet: 1000 | 10_000 | 50_000 = 1000;
   private readonly dataService = inject(DataService);
 
   public personData$!: Observable<Person[]>;
@@ -25,8 +25,8 @@ export class DashboardComponent implements OnInit {
         return this.dataService.get1k();
       case 10_000:
         return  this.dataService.get10k();
-      case 100_000:
-        return  this.dataService.get100k();
+      case 50_000:
+        return  this.dataService.get50k();
     }
   }
 
