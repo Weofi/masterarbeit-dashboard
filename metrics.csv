@@ -1,0 +1,9 @@
+URL,INP,CLS,TBT,LCP
+http://localhost:4200/1k,undefined,0.0000,0.00,2878.08
+http://localhost:4200/10k,undefined,0.0000,0.00,4153.55
+http://localhost:4200/100k,undefined,0.0000,4.00,2719.15
+http://localhost:4200/1M,undefined,0.0000,174.00,2706.81
+http://localhost:4200/1k,31.61,0.0000,0.00,undefined
+http://localhost:4200/10k,37.14,0.0000,0.00,undefined
+http://localhost:4200/100k,31.11,0.0000,2.13,undefined
+http://localhost:4200/1M,35.34,0.0000,138.34,undefined
