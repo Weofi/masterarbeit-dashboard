@@ -23,10 +23,14 @@ export class DataService {
   }
 
   public get10k() {
-    return this.httpClient.get<Person[]>('./MOCK_DATA_10000.json');
+    return this.httpClient.get<Person[]>('./MOCK_DATA_10_000.json');
   }
 
-  public get50k() {
-    return this.httpClient.get<Person[]>('./MOCK_DATA_50000.json');
+  public get100k() {
+    return this.httpClient.get<Person[]>('./MOCK_DATA_100_000.json');
+  }
+
+  public get1M() {
+    return this.httpClient.get<Person[]>('./MOCK_DATA_1_000_000.json');
   }
 }
