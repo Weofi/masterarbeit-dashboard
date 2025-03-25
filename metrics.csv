@@ -7,3 +7,11 @@ http://localhost:4200/1k,31.61,0.0000,0.00,undefined
 http://localhost:4200/10k,37.14,0.0000,0.00,undefined
 http://localhost:4200/100k,31.11,0.0000,2.13,undefined
 http://localhost:4200/1M,35.34,0.0000,138.34,undefined
+http://localhost:4200/1k,,0.0000,0.00,2881.26
+http://localhost:4200/10k,,0.0000,0.00,4145.18
+http://localhost:4200/100k,,0.0000,5.00,2717.65
+http://localhost:4200/1M,,0.0000,203.50,2711.96
+http://localhost:4200/1k,29.42,0.0000,0.00,
+http://localhost:4200/10k,35.77,0.0000,0.00,
+http://localhost:4200/100k,30.94,0.0000,0.37,
+http://localhost:4200/1M,34.58,0.0000,156.38,

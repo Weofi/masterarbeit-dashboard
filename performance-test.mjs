@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs';
+import { writeFileSync, existsSync, appendFileSync } from 'fs';
 import puppeteer from 'puppeteer';
 import { startFlow, desktopConfig } from 'lighthouse';
 
@@ -19,7 +19,6 @@ const page = await browser.newPage();
 await page.setCacheEnabled(false);
 const flow = await startFlow(page, { config: desktopConfig });
 
-// Loop over URLs and collect metrics
 for (const { url, search } of urls) {
   await flow.navigate(url);
   await page.waitForNetworkIdle();
@@ -37,16 +36,15 @@ for (const { url, search } of urls) {
 
 await browser.close();
 
-// Generate and save reports
 const reportJson = await flow.createFlowResult();
 writeFileSync('report.html', await flow.generateReport());
 writeFileSync('report.json', JSON.stringify(reportJson, null, 2));
 
-// Extract Metrics (INP, CLS, TBT, LCP) for CSV
 const loadMetricsData = reportJson.steps
   .filter(step => step.lhr.gatherMode === 'navigation')
   .map((step, index) => ({
     URL: urls[index].url,
+    INP: '',
     CLS: step.lhr.audits['cumulative-layout-shift'].numericValue.toFixed(4),
     TBT: step.lhr.audits['total-blocking-time'].numericValue.toFixed(2),
     LCP: step.lhr.audits['largest-contentful-paint'].numericValue.toFixed(2),
@@ -59,19 +57,22 @@ const searchMetricsData = reportJson.steps
     INP: step.lhr.audits['interaction-to-next-paint'].numericValue.toFixed(2),
     CLS: step.lhr.audits['cumulative-layout-shift'].numericValue.toFixed(4),
     TBT: step.lhr.audits['total-blocking-time'].numericValue.toFixed(2),
+    LCP: '',
   }));
 
-// Convert extracted metrics to CSV
-const csvHeader = 'URL,INP,CLS,TBT,LCP';
-const csvRows = loadMetricsData
-  .map(row => `${row.URL},${row.INP},${row.CLS},${row.TBT},${row.LCP}`)
-  .join('\n');
-const csvRows2 = searchMetricsData
-  .map(row => `${row.URL},${row.INP},${row.CLS},${row.TBT},${row.LCP}`)
-  .join('\n');
+const allMetricsData = [...loadMetricsData, ...searchMetricsData];
 
-const csvContent = csvHeader + '\n' + csvRows + '\n' + csvRows2;
+const csvFile = 'metrics.csv';
 
-// Save to CSV file
-writeFileSync('metrics.csv', csvContent);
-console.log('Metrics saved to metrics.csv');
+if (!existsSync(csvFile)) {
+  const csvHeader = 'URL,INP,CLS,TBT,LCP\n';
+  writeFileSync(csvFile, csvHeader);
+}
+
+const csvRows = allMetricsData
+  .map(row => `${row.URL},${row.INP},${row.CLS},${row.TBT},${row.LCP}`)
+  .join('\n') + '\n';
+
+appendFileSync(csvFile, csvRows);
+
+console.log('Metrics appended to metrics.csv');
