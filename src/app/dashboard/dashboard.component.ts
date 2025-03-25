@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit{
       map(([personData, search]) => {
         if (search.length <= 0) return personData;
         return personData.filter(person =>
-          (person.first_name + person.last_name + person.email + person.gender).toLowerCase().includes(search.toLowerCase().replaceAll(" ","")))
+          (person.first_name + person.last_name + person.email + person.gender + person.id).toLowerCase().includes(search.toLowerCase().replaceAll(" ","")))
       }),
     );
   }
