@@ -7,7 +7,7 @@ import {AsyncPipe} from '@angular/common';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
-  selector: 'app-dashboard-optimized',
+  selector: 'app-dashboard',
   imports: [
     ScrollingModule,
     CardComponent,
@@ -15,10 +15,10 @@ import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  templateUrl: './dashboard-optimized.component.html',
-  styleUrl: './dashboard-optimized.component.css'
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css'
 })
-export class DashboardOptimizedComponent implements OnInit {
+export class DashboardComponent implements OnInit {
   @Input() public dataSet: 1000 | 10_000 | 100_000 | 1_000_000 = 1000;
   private readonly dataService = inject(DataService);
 
