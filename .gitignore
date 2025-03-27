@@ -40,3 +40,9 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Angular
+/angular-app/.angular
+/angular-app/public/MOCK_DATA_10_000.json
+/angular-app/public/MOCK_DATA_100_000.json
+/angular-app/public/MOCK_DATA_1_000_000.json
