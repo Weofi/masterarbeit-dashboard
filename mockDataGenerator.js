@@ -24,13 +24,16 @@ function increaseDatasetSize(data, targetSize) {
 // Increase to 10,000 entries
 const data10000 = increaseDatasetSize(data, 10000);
 fs.writeFileSync('./angular-app/public/MOCK_DATA_10_000.json', JSON.stringify(data10000, null, 2));
+fs.writeFileSync('./react-app/public/MOCK_DATA_10_000.json', JSON.stringify(data10000, null, 2));
 
 // Increase to 100,000 entries
 const data100000 = increaseDatasetSize(data, 100000);
 fs.writeFileSync('./angular-app/public/MOCK_DATA_100_000.json', JSON.stringify(data100000, null, 2));
+fs.writeFileSync('./react-app/public/MOCK_DATA_100_000.json', JSON.stringify(data100000, null, 2));
 
 // Increase to 1,000,000 entries
 const data1000000 = increaseDatasetSize(data, 1000000);
 fs.writeFileSync('./angular-app/public/MOCK_DATA_1_000_000.json', JSON.stringify(data1000000, null, 2));
+fs.writeFileSync('./react-app/public/MOCK_DATA_1_000_000.json', JSON.stringify(data1000000, null, 2));
 
 console.log('Datasets have been increased and saved.');
