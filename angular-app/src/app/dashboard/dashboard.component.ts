@@ -1,7 +1,6 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
 import {DataService, Person} from '../data-service/data.service';
 import {combineLatest, debounceTime, map, Observable, startWith} from 'rxjs';
-import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CardComponent} from '../card/card.component';
 import {AsyncPipe} from '@angular/common';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -9,7 +8,6 @@ import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 @Component({
   selector: 'app-dashboard',
   imports: [
-    ScrollingModule,
     CardComponent,
     AsyncPipe,
     FormsModule,
@@ -52,6 +50,7 @@ export class DashboardComponent implements OnInit {
         return personData.filter(person =>
           (person.first_name + person.last_name + person.email + person.gender + person.id).toLowerCase().includes(search.toLowerCase().replaceAll(" ","")))
       }),
+      map(personData => personData.slice(0, 100))
     );
   }
 }
