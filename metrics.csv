@@ -7,3 +7,11 @@ http://localhost:8081/1k,29.79,0.0000,0.00,
 http://localhost:8081/10k,34.95,0.0000,0.00,
 http://localhost:8081/100k,30.63,0.0000,0.00,
 http://localhost:8081/1M,32.22,0.0000,125.10,
+http://localhost:8081/1k,,0.0000,0.00,701.16
+http://localhost:8081/10k,,0.0000,0.00,1975.10
+http://localhost:8081/100k,,0.0000,6.50,571.39
+http://localhost:8081/1M,,0.0000,172.50,567.11
+http://localhost:8081/1k,33.32,0.0000,0.00,
+http://localhost:8081/10k,33.44,0.0000,0.00,
+http://localhost:8081/100k,30.66,0.0000,0.00,
+http://localhost:8081/1M,32.39,0.0000,131.88,
