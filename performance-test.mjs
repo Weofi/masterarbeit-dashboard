@@ -3,10 +3,10 @@ import puppeteer from 'puppeteer';
 import { startFlow, desktopConfig } from 'lighthouse';
 
 const urls = [
-  { url: 'http://localhost:4200/1k', search: '126' },
-  { url: 'http://localhost:4200/10k', search: '1126' },
-  { url: 'http://localhost:4200/100k', search: '11126' },
-  { url: 'http://localhost:4200/1M', search: '111126' },
+  { url: 'http://localhost:8081/1k', search: '126' },
+  { url: 'http://localhost:8081/10k', search: '1126' },
+  { url: 'http://localhost:8081/100k', search: '11126' },
+  { url: 'http://localhost:8081/1M', search: '111126' },
 ];
 
 const browser = await puppeteer.launch({
@@ -37,8 +37,8 @@ for (const { url, search } of urls) {
 await browser.close();
 
 const reportJson = await flow.createFlowResult();
-writeFileSync('report.html', await flow.generateReport());
-writeFileSync('report.json', JSON.stringify(reportJson, null, 2));
+// writeFileSync('report.html', await flow.generateReport());
+// writeFileSync('report.json', JSON.stringify(reportJson, null, 2));
 
 const loadMetricsData = reportJson.steps
   .filter(step => step.lhr.gatherMode === 'navigation')

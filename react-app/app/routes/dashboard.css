@@ -1,7 +1,6 @@
-:host {
+.dashboard {
   display: block;
   max-width: 80em;
   margin: auto;
 }
-
 

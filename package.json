@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "start:angular": "npm run start --prefix angular-app",
+    "build:angular": "npm run build --prefix angular-app",
+    "deploy:angular": "npm run build --prefix angular-app && http-server angular-app/dist/masterarbeit-angular-dashboard/browser -c-1 --proxy http://localhost:8081?",
     "start:react": "npm run dev --prefix react-app",
     "start:vue": "npm run dev --prefix vue-app"
   },

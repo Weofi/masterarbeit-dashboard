@@ -46,9 +46,11 @@ Thumbs.db
 /angular-app/public/MOCK_DATA_10_000.json
 /angular-app/public/MOCK_DATA_100_000.json
 /angular-app/public/MOCK_DATA_1_000_000.json
+/angular-app/dist
 
 # React
 /react-app/.react-router
 /react-app/public/MOCK_DATA_10_000.json
 /react-app/public/MOCK_DATA_100_000.json
 /react-app/public/MOCK_DATA_1_000_000.json
+
