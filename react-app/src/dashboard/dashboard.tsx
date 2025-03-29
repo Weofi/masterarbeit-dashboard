@@ -1,6 +1,7 @@
 import "./dashboard.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Card from "../card/card.tsx";
 
 interface DashboardProps {
   dataSet?: 1000 | 10_000 | 100_000 | 1_000_000;
@@ -65,7 +66,7 @@ const Dashboard: React.FC<DashboardProps> = ({ dataSet = 1000 }) => {
       <ul>
         {filteredData.map((person) => (
           <li key={person.id}>
-            {person.id} {person.last_name} - {person.email}
+            <Card person={person} />
           </li>
         ))}
       </ul>

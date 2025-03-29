@@ -1,6 +1,10 @@
 <input type="text" class="searchTerm" placeholder="search..." [formControl]="searchForm">
-@for (person of filteredPersonData$ | async; track person.id) {
-  <app-card [person]="person"></app-card>
-}
+<ul>
+  @for (person of filteredPersonData$ | async; track person.id) {
+    <li>
+      <app-card [person]="person"></app-card>
+    </li>
+  }
+</ul>
 
 
