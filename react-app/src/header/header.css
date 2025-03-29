@@ -1,0 +1,29 @@
+header {
+  background: red;
+  padding: 1em 2em;
+
+  nav {
+    max-width: 80em;
+    margin: auto;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+
+    .link-active {
+      text-decoration: underline;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .spacer {
+      flex-grow: 1;
+    }
+  }
+}
