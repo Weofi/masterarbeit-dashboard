@@ -1,28 +1,20 @@
 @switch (person.gender) {
-  @case("Male") {
-    @if (optimized) {
-      <img ngSrc="profileIconMale.png?name={{person.id}}" alt="{{ person.first_name }} {{person.last_name}} Avatar" width="256" height="256">
-    } @else {
-      <img src="profileIconMale.png?name={{person.id}}" alt="{{ person.first_name }} {{person.last_name}} Avatar" width="256" height="256">
-    }
+  @case ("Male") {
+    <img ngSrc="profileIconMale.png?name={{person.id}}" alt="{{ person.first_name }} {{person.last_name}} Avatar"
+         width="256" height="256">
   }
-  @case("Female") {
-    @if (optimized) {
-      <img ngSrc="profileIconFemale.png?name={{person.id}}" alt="{{ person.first_name }} {{person.last_name}} Avatar" width="256" height="256">
-    } @else {
-      <img src="profileIconFemale.png?name={{person.id}}" alt="{{ person.first_name }} {{person.last_name}} Avatar" width="256" height="256">
-    }
+  @case ("Female") {
+    <img ngSrc="profileIconFemale.png?name={{person.id}}" alt="{{ person.first_name }} {{person.last_name}} Avatar"
+         width="256" height="256">
   }
   @default {
-    @if (optimized) {
-      <img ngSrc="profileIconDefault.png?name={{person.id}}" alt="{{ person.first_name }} {{person.last_name}} Avatar" width="256" height="256">
-    } @else {
-      <img src="profileIconDefault.png?name={{person.id}}" alt="{{ person.first_name }} {{person.last_name}} Avatar" width="256" height="256">
-    }
+    <img ngSrc="profileIconDefault.png?name={{person.id}}" alt="{{ person.first_name }} {{person.last_name}} Avatar"
+         width="256" height="256">
+
   }
 }
-<div class="person-info" [id]="'person_' + person.id">
-  <p><strong>{{person.id}}: {{ person.first_name }} {{person.last_name}}</strong></p>
+<div [id]="'person_' + person.id" class="person-info">
+  <p><strong>{{ person.id }}: {{ person.first_name }} {{ person.last_name }}</strong></p>
   <p>{{ person.email }}</p>
   <p>{{ person.gender }}</p>
   <p class="balance">{{ person.balance }}</p>

@@ -12,5 +12,4 @@ import {NgOptimizedImage} from '@angular/common';
 })
 export class CardComponent {
   @Input({required: true}) person!: Person;
-  @Input() optimized: boolean = false;
 }
