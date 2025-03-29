@@ -1,5 +1,5 @@
 header {
-  background: red;
+  background: cadetblue;
   padding: 1em 2em;
 
   nav {
@@ -9,7 +9,7 @@ header {
     gap: 1em;
     align-items: center;
 
-    .link-active {
+    .active {
       text-decoration: underline;
     }
 
