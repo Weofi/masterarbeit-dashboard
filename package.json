@@ -8,9 +8,6 @@
     "deploy:react": "npm run build --prefix react-app && http-server react-app/dist -c-1 -p 8082 --proxy http://localhost:8082?",
     "start:vue": "npm run dev --prefix vue-app"
   },
-  "dependencies": {
-  },
-  "devDependencies": {},
   "author": "",
   "license": "ISC"
 }

@@ -54,3 +54,9 @@ Thumbs.db
 /react-app/public/MOCK_DATA_100_000.json
 /react-app/public/MOCK_DATA_1_000_000.json
 
+# React
+/vue-app/.vscode
+/vue-app/public/MOCK_DATA_10_000.json
+/vue-app/public/MOCK_DATA_100_000.json
+/vue-app/public/MOCK_DATA_1_000_000.json
+
