@@ -6,7 +6,13 @@
     "deploy:angular": "npm run build --prefix angular-app && http-server angular-app/dist/masterarbeit-angular-dashboard/browser -c-1 -p 8081 --proxy http://localhost:8081?",
     "start:react": "npm run dev --prefix react-app",
     "deploy:react": "npm run build --prefix react-app && http-server react-app/dist -c-1 -p 8082 --proxy http://localhost:8082?",
-    "start:vue": "npm run dev --prefix vue-app"
+    "start:vue": "npm run dev --prefix vue-app",
+    "deploy:vue": "npm run build --prefix vue-app && http-server vue-app/dist -c-1 -p 8083 --proxy http://localhost:8083?"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "puppeteer": "^24.4.0",
+    "lighthouse": "^12.5.1"
   },
   "author": "",
   "license": "ISC"

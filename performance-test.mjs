@@ -3,10 +3,10 @@ import puppeteer from 'puppeteer';
 import { startFlow, desktopConfig } from 'lighthouse';
 
 const urls = [
-  { url: 'http://localhost:8081/1k', search: '126' },
-  { url: 'http://localhost:8081/10k', search: '1126' },
-  { url: 'http://localhost:8081/100k', search: '11126' },
-  { url: 'http://localhost:8081/1M', search: '111126' },
+  { url: 'http://localhost:8083/1k', search: '126' },
+  { url: 'http://localhost:8083/10k', search: '1126' },
+  { url: 'http://localhost:8083/100k', search: '11126' },
+  { url: 'http://localhost:8083/1M', search: '111126' },
 ];
 
 const browser = await puppeteer.launch({
@@ -22,14 +22,14 @@ const flow = await startFlow(page, { config: desktopConfig });
 for (const { url, search } of urls) {
   await flow.navigate(url);
   await page.waitForNetworkIdle();
-  await page.waitForSelector('app-card');
+  await page.waitForSelector('.card');
   console.log(`${url} loaded`);
 
   await flow.startTimespan();
   const input = await page.waitForSelector('input');
   await input.click({ offset: { x: 74, y: 24 } });
   await input.type(search);
-  await page.waitForFunction('document.querySelectorAll("app-card").length === 1');
+  await page.waitForFunction('document.querySelectorAll(".card").length === 1');
   await flow.endTimespan();
   console.log(`${url} search executed`);
 }
