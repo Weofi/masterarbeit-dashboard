@@ -26,7 +26,7 @@ header {
     gap: 1em;
     align-items: center;
 
-    .active {
+    .router-link-active {
       text-decoration: underline;
     }
 
