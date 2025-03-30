@@ -8,19 +8,19 @@
     />
     <ul>
       <li v-for="person in filteredData" :key="person.id">
-<!--        <Card :person="person" />-->
-        {{person.id}}
+        <Card :person="person"/>
       </li>
     </ul>
   </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import {ref, watch} from 'vue'
+import {useRoute} from 'vue-router'
 import axios from 'axios'
-// import Card from '../card/Card.vue'
+import Card from "./Card.vue";
 
-// Definiere den Prop "dataSet" mit Default-Wert und Validator
+// Props definieren
 const props = defineProps({
   dataSet: {
     type: Number,
@@ -34,7 +34,9 @@ const filteredData = ref([])
 const searchTerm = ref('')
 const debouncedSearchTerm = ref('')
 
-// Daten basierend auf der dataSet-Größe laden
+const route = useRoute()
+
+// Daten basierend auf dataSet laden
 const fetchData = async (size) => {
   let url = ''
   if (size === 1000) url = '/MOCK_DATA.json'
@@ -50,16 +52,16 @@ const fetchData = async (size) => {
   }
 }
 
-// Beobachte den dataSet-Prop und lade beim Ändern die Daten neu
+// Lade Daten, wenn sich dataSet ändert
 watch(
   () => props.dataSet,
   (newSize) => {
     fetchData(newSize)
   },
-  { immediate: true }
+  {immediate: true}
 )
 
-// Debounce-Logik für die Suche
+// Debounce für searchTerm
 watch(
   searchTerm,
   (newTerm, _, onCleanup) => {
@@ -70,7 +72,7 @@ watch(
   }
 )
 
-// Filtere die Daten, sobald sich die geladenen Daten oder der debouncedSearchTerm ändern
+// Filtere die Daten bei Änderung der Daten oder des debouncedSearchTerm
 watch(
   [data, debouncedSearchTerm],
   () => {
@@ -82,20 +84,20 @@ watch(
     })
     filteredData.value = filtered.slice(0, 100)
   },
-  { immediate: true }
+  {immediate: true}
 )
+
 </script>
 
 <style scoped>
-/* Hier kannst du deinen CSS-Code aus dashboard.css einfügen */
 .dashboard {
-  /* Beispiel: */
-  padding: 1rem;
+  display: block;
+  max-width: 80em;
+  margin: auto;
 }
 
-.searchTerm {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
+ul {
+  list-style-type: none;
+  padding: 0;
 }
 </style>

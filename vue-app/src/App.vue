@@ -1,19 +1,18 @@
 <script setup>
+import Header from "@/components/Header.vue";
 </script>
 
 <template>
-  <h1>Hello App!</h1>
-  <p>
-    <strong>Current route path:</strong> {{ $route.fullPath }}
-  </p>
-  <nav>
-    <RouterLink to="/">Go to Home</RouterLink>
-    <RouterLink to="/about">Go to About</RouterLink>
-  </nav>
+  <Header></Header>
   <main>
-    <RouterView />
+    <router-view :key="$route.fullPath"/>
   </main>
 </template>
 
 <style scoped>
+main {
+  flex-grow: 1;
+  padding: 2em;
+}
+
 </style>
