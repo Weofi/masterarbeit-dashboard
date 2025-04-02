@@ -69,7 +69,7 @@ for (const { url, search, name, selector } of urls) {
   // writeFileSync('report.html', await flow.generateReport());
   // writeFileSync('report.json', JSON.stringify(reportJson, null, 2));
 
-  const fileName = `measurement_data/${name}.csv`;
+  const fileName = `${name}.csv`;
 
   if (!existsSync(fileName)) {
     const csvHeader = 'INP,CLS,TBT,LCP\n';

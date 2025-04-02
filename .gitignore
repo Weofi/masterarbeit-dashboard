@@ -43,6 +43,7 @@ Thumbs.db
 
 # Angular
 /angular-app/.angular
+/angular-app/node_modules
 /angular-app/public/MOCK_DATA_10_000.json
 /angular-app/public/MOCK_DATA_100_000.json
 /angular-app/public/MOCK_DATA_1_000_000.json
@@ -50,12 +51,14 @@ Thumbs.db
 
 # React
 /react-app/.react-router
+/react-app/node_modules
 /react-app/public/MOCK_DATA_10_000.json
 /react-app/public/MOCK_DATA_100_000.json
 /react-app/public/MOCK_DATA_1_000_000.json
 
 # React
 /vue-app/.vscode
+/vue-app/node_modules
 /vue-app/public/MOCK_DATA_10_000.json
 /vue-app/public/MOCK_DATA_100_000.json
 /vue-app/public/MOCK_DATA_1_000_000.json
