@@ -1,0 +1,90 @@
+import { writeFileSync, existsSync, appendFileSync } from 'fs';
+import puppeteer from 'puppeteer';
+import { startFlow, desktopConfig } from 'lighthouse';
+
+const urls = [
+  { url: 'http://localhost:8083/1k', search: '126', name: "Vue_1k", selector: ".card" },
+  { url: 'http://localhost:8083/10k', search: '1126', name: "Vue_10k", selector: ".card" },
+  { url: 'http://localhost:8083/100k', search: '11126', name: "Vue_100k", selector: ".card" },
+  { url: 'http://localhost:8083/1M', search: '111126', name: "Vue_1M", selector: ".card" },
+  { url: 'http://localhost:8082/1k', search: '126', name: "React_1k", selector: ".card" },
+  { url: 'http://localhost:8082/10k', search: '1126', name: "React_10k", selector: ".card" },
+  { url: 'http://localhost:8082/100k', search: '11126', name: "React_100k", selector: ".card" },
+  { url: 'http://localhost:8082/1M', search: '111126', name: "React_1M", selector: ".card" },
+  { url: 'http://localhost:8081/1k', search: '126', name: "Angular_1k", selector: "app-card" },
+  { url: 'http://localhost:8081/10k', search: '1126', name: "Angular_10k", selector: "app-card" },
+  { url: 'http://localhost:8081/100k', search: '11126', name: "Angular_100k", selector: "app-card"},
+  { url: 'http://localhost:8081/1M', search: '111126', name: "Angular_1M", selector: "app-card" },
+];
+
+
+
+for (const { url, search, name, selector } of urls) {
+
+  console.log(`${name} started`);
+  const browser = await puppeteer.launch({
+    headless: true,
+    defaultViewport: null,
+    args: [`--window-size=1920,1080`],
+  });
+
+  const page = await browser.newPage();
+  await page.setCacheEnabled(false);
+  const flow = await startFlow(page, { config: desktopConfig });
+
+  await flow.navigate(url);
+  await page.waitForNetworkIdle();
+  await page.waitForSelector(selector);
+  console.log(`${name} loaded`);
+
+  await flow.startTimespan();
+  const input = await page.waitForSelector('input');
+  await input.click({ offset: { x: 74, y: 24 } });
+  await input.type(search);
+  await page.waitForFunction(`document.querySelectorAll("${selector}").length === 1`);
+  await flow.endTimespan();
+  console.log(`${name} search executed`);
+
+  await browser.close();
+
+  const reportJson = await flow.createFlowResult();
+
+  let INP, CLS, TBT, LCP;
+
+
+  reportJson.steps
+    .filter(step => step.lhr.gatherMode === 'navigation')
+    .forEach((step, _index) => {
+      TBT = step.lhr.audits['total-blocking-time'].numericValue.toFixed(4)
+      LCP = step.lhr.audits['largest-contentful-paint'].numericValue.toFixed(4)
+    });
+
+  reportJson.steps
+    .filter(step => step.lhr.gatherMode === 'timespan')
+    .forEach((step, _index) => {
+      INP = step.lhr.audits['interaction-to-next-paint'].numericValue.toFixed(4)
+      CLS = step.lhr.audits['cumulative-layout-shift'].numericValue.toFixed(4)
+    });
+
+  // writeFileSync('report.html', await flow.generateReport());
+  // writeFileSync('report.json', JSON.stringify(reportJson, null, 2));
+
+  const fileName = `measurement_data/${name}.csv`;
+
+  if (!existsSync(fileName)) {
+    const csvHeader = 'INP,CLS,TBT,LCP\n';
+    writeFileSync(fileName, csvHeader);
+  }
+
+  const csvRows = `${INP},${CLS},${TBT},${LCP}\n`
+
+  appendFileSync(fileName, csvRows);
+
+  console.log(`Metrics appended to ${fileName}\n`);
+}
+
+
+
+
+
+

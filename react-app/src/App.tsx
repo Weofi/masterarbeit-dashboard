@@ -11,11 +11,12 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Navigate replace to="/1k" />} />
-          <Route path="/1k" element={<Dashboard dataSet={1_000} />} />
-          <Route path="/10k" element={<Dashboard dataSet={10_000} />} />
-          <Route path="/100k" element={<Dashboard dataSet={100_000} />} />
-          <Route path="/1M" element={<Dashboard dataSet={1_000_000} />} />
+          <Route path="/1k" element={<><Dashboard key="1k" dataSet={1_000} /></>} />
+          <Route path="/10k" element={<><Dashboard key="10k" dataSet={10_000} /></>} />
+          <Route path="/100k" element={<><Dashboard key="100k" dataSet={100_000} /></>} />
+          <Route path="/1M" element={<><Dashboard key="1M" dataSet={1_000_000} /></>} />
         </Routes>
+
       </main>
     </>
   )
