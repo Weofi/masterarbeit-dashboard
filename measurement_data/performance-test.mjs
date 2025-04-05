@@ -17,71 +17,76 @@ const urls = [
   { url: 'http://localhost:8081/1M', search: '111126', name: "Angular_1M", selector: "app-card" },
 ];
 
+const loopCount = 10
 
+for (let loopIndex = 1; loopIndex <= loopCount; loopIndex++) {
+  for (const { url, search, name, selector } of urls) {
 
-for (const { url, search, name, selector } of urls) {
-
-  console.log(`${name} started`);
-  const browser = await puppeteer.launch({
-    headless: true,
-    defaultViewport: null,
-    args: [`--window-size=1920,1080`],
-  });
-
-  const page = await browser.newPage();
-  await page.setCacheEnabled(false);
-  const flow = await startFlow(page, { config: desktopConfig });
-
-  await flow.navigate(url);
-  await page.waitForNetworkIdle();
-  await page.waitForSelector(selector);
-  console.log(`${name} loaded`);
-
-  await flow.startTimespan();
-  const input = await page.waitForSelector('input');
-  await input.click({ offset: { x: 74, y: 24 } });
-  await input.type(search);
-  await page.waitForFunction(`document.querySelectorAll("${selector}").length === 1`);
-  await flow.endTimespan();
-  console.log(`${name} search executed`);
-
-  await browser.close();
-
-  const reportJson = await flow.createFlowResult();
-
-  let INP, CLS, TBT, LCP;
-
-
-  reportJson.steps
-    .filter(step => step.lhr.gatherMode === 'navigation')
-    .forEach((step, _index) => {
-      TBT = step.lhr.audits['total-blocking-time'].numericValue.toFixed(4)
-      LCP = step.lhr.audits['largest-contentful-paint'].numericValue.toFixed(4)
+    console.log(`${name} started for Loop #${loopIndex}`);
+    const browser = await puppeteer.launch({
+      headless: true,
+      defaultViewport: null,
+      args: [`--window-size=1920,1080`],
     });
 
-  reportJson.steps
-    .filter(step => step.lhr.gatherMode === 'timespan')
-    .forEach((step, _index) => {
-      INP = step.lhr.audits['interaction-to-next-paint'].numericValue.toFixed(4)
-      CLS = step.lhr.audits['cumulative-layout-shift'].numericValue.toFixed(4)
-    });
+    const page = await browser.newPage();
+    await page.setCacheEnabled(false);
+    const flow = await startFlow(page, { config: desktopConfig });
 
-  // writeFileSync('report.html', await flow.generateReport());
-  // writeFileSync('report.json', JSON.stringify(reportJson, null, 2));
+    await flow.navigate(url);
+    await page.waitForNetworkIdle();
+    await page.waitForSelector(selector);
+    console.log(`${name} loaded`);
 
-  const fileName = `${name}.csv`;
+    await flow.startTimespan();
+    const input = await page.waitForSelector('input');
+    await input.click({ offset: { x: 74, y: 24 } });
+    await input.type(search);
+    await page.waitForFunction(`document.querySelectorAll("${selector}").length === 1`);
+    await flow.endTimespan();
+    console.log(`${name} search executed`);
 
-  if (!existsSync(fileName)) {
-    const csvHeader = 'INP,CLS,TBT,LCP\n';
-    writeFileSync(fileName, csvHeader);
+    await browser.close();
+
+    const reportJson = await flow.createFlowResult();
+
+    let INP, CLS, TBT, LCP;
+
+
+    reportJson.steps
+      .filter(step => step.lhr.gatherMode === 'navigation')
+      .forEach((step, _index) => {
+        TBT = step.lhr.audits['total-blocking-time'].numericValue
+        LCP = step.lhr.audits['largest-contentful-paint'].numericValue
+      });
+
+    reportJson.steps
+      .filter(step => step.lhr.gatherMode === 'timespan')
+      .forEach((step, _index) => {
+        INP = step.lhr.audits['interaction-to-next-paint'].numericValue
+        CLS = step.lhr.audits['cumulative-layout-shift'].numericValue
+      });
+
+    // writeFileSync('report.html', await flow.generateReport());
+    // writeFileSync('report.json', JSON.stringify(reportJson, null, 2));
+
+    const fileName = `${name}.csv`;
+
+    if (!existsSync(fileName)) {
+      const csvHeader = 'INP,CLS,TBT,LCP\n';
+      writeFileSync(fileName, csvHeader);
+    }
+
+    const csvRows = `${INP},${CLS},${TBT},${LCP}\n`
+
+    appendFileSync(fileName, csvRows);
+
+    console.log(`Metrics appended to ${fileName}\n`);
   }
-
-  const csvRows = `${INP},${CLS},${TBT},${LCP}\n`
-
-  appendFileSync(fileName, csvRows);
-
-  console.log(`Metrics appended to ${fileName}\n`);
 }
+
+
+
 
 
 
