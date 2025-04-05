@@ -17,26 +17,34 @@ const urls = [
   { url: 'http://localhost:8081/1M', search: '111126', name: "Angular_1M", selector: "app-card" },
 ];
 
-const loopCount = 10
+const loopCount = 2
 
 for (let loopIndex = 1; loopIndex <= loopCount; loopIndex++) {
   for (const { url, search, name, selector } of urls) {
 
     console.log(`${name} started for Loop #${loopIndex}`);
     const browser = await puppeteer.launch({
-      headless: true,
+      headless: "new",
       defaultViewport: null,
-      args: [`--window-size=1920,1080`],
+      args: [`--window-size=1920,1080 --js-flags="--expose-gc"`],
     });
 
     const page = await browser.newPage();
     await page.setCacheEnabled(false);
     const flow = await startFlow(page, { config: desktopConfig });
 
+    let peakHeap = 0;
+
     await flow.navigate(url);
     await page.waitForNetworkIdle();
     await page.waitForSelector(selector);
     console.log(`${name} loaded`);
+
+    const interval = setInterval(async () => {
+      const heap = await page.evaluate(() => performance.memory.usedJSHeapSize);
+      peakHeap = Math.max(peakHeap, heap);
+      // console.log(`Aktueller Heap: ${(heap / 1024 / 1024).toFixed(2)} MB`);
+    }, 500);
 
     await flow.startTimespan();
     const input = await page.waitForSelector('input');
@@ -45,6 +53,11 @@ for (let loopIndex = 1; loopIndex <= loopCount; loopIndex++) {
     await page.waitForFunction(`document.querySelectorAll("${selector}").length === 1`);
     await flow.endTimespan();
     console.log(`${name} search executed`);
+
+
+    clearInterval(interval)
+
+    console.log('\n🔺 Peak Heap:', (peakHeap / 1024 / 1024).toFixed(2), 'MB');
 
     await browser.close();
 
@@ -67,17 +80,19 @@ for (let loopIndex = 1; loopIndex <= loopCount; loopIndex++) {
         CLS = step.lhr.audits['cumulative-layout-shift'].numericValue
       });
 
+
+
     // writeFileSync('report.html', await flow.generateReport());
     // writeFileSync('report.json', JSON.stringify(reportJson, null, 2));
 
     const fileName = `${name}.csv`;
 
     if (!existsSync(fileName)) {
-      const csvHeader = 'INP,CLS,TBT,LCP\n';
+      const csvHeader = 'INP,CLS,TBT,LCP, PeakHeap\n';
       writeFileSync(fileName, csvHeader);
     }
 
-    const csvRows = `${INP},${CLS},${TBT},${LCP}\n`
+    const csvRows = `${INP},${CLS},${TBT},${LCP},${peakHeap}\n`
 
     appendFileSync(fileName, csvRows);
 
