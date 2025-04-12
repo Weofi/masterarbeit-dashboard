@@ -21,7 +21,7 @@ const Card: React.FC<CardProps> = ({ person }) => {
 
   return (
     <div className="card">
-      <img src={getImageSrc()} alt={`${person.first_name} ${person.last_name} Avatar`} width="256" height="256" />
+      <img src={getImageSrc()} alt={`${person.first_name} ${person.last_name} Avatar`} width="256" height="256" loading="lazy" />
       <div id={`person_${person.id}`} className="person-info">
         <p><strong>{person.id}: {person.first_name} {person.last_name}</strong></p>
         <p>{person.email}</p>

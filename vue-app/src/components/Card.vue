@@ -5,6 +5,7 @@
       :alt="`${person.first_name} ${person.last_name} Avatar`"
       width="256"
       height="256"
+      loading="lazy"
     />
     <div :id="`person_${person.id}`" class="person-info">
       <p><strong>{{ person.id }}: {{ person.first_name }} {{ person.last_name }}</strong></p>
