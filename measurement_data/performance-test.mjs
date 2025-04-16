@@ -17,7 +17,7 @@ const urls = [
   { url: 'http://localhost:8081/1M', search: '111126', name: "Angular_1M", selector: "app-card" },
 ];
 
-const loopCount = 25
+const loopCount = 40
 
 for (let loopIndex = 1; loopIndex <= loopCount; loopIndex++) {
   for (const { url, search, name, selector } of urls) {
@@ -38,7 +38,7 @@ for (let loopIndex = 1; loopIndex <= loopCount; loopIndex++) {
     await flow.navigate(url);
     await page.waitForNetworkIdle();
     await page.waitForSelector(selector);
-    console.log(`${name} loaded`);
+    //console.log(`${name} loaded`);
 
     const interval = setInterval(async () => {
       const heap = await page.evaluate(() => performance.memory.usedJSHeapSize);
@@ -52,12 +52,12 @@ for (let loopIndex = 1; loopIndex <= loopCount; loopIndex++) {
     await input.type(search);
     await page.waitForFunction(`document.querySelectorAll("${selector}").length === 1`);
     await flow.endTimespan();
-    console.log(`${name} search executed`);
+    //console.log(`${name} search executed`);
 
 
     clearInterval(interval)
 
-    console.log('\n🔺 Peak Heap:', (peakHeap / 1024 / 1024).toFixed(2), 'MB');
+    //console.log('\n🔺 Peak Heap:', (peakHeap / 1024 / 1024).toFixed(2), 'MB');
 
     await browser.close();
 
@@ -88,7 +88,7 @@ for (let loopIndex = 1; loopIndex <= loopCount; loopIndex++) {
     const fileName = `${name}.csv`;
 
     if (!existsSync(fileName)) {
-      const csvHeader = 'INP,CLS,TBT,LCP, PeakHeap\n';
+      const csvHeader = 'INP,CLS,TBT,LCP,PeakHeap\n';
       writeFileSync(fileName, csvHeader);
     }
 
