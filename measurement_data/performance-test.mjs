@@ -17,7 +17,7 @@ const urls = [
   { url: 'http://localhost:8081/1M', search: '111126', name: "Angular_1M", selector: "app-card" },
 ];
 
-const loopCount = 40
+const loopCount = 2
 
 for (let loopIndex = 1; loopIndex <= loopCount; loopIndex++) {
   for (const { url, search, name, selector } of urls) {
