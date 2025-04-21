@@ -130,10 +130,27 @@ const convertToExcel = async () => {
         worksheet.getRow(statsStartRow + 1).getCell(colIndex + 1).value = { formula: `MAX(${dataRange})` };
         worksheet.getRow(statsStartRow + 2).getCell(colIndex + 1).value = { formula: `MIN(${dataRange})` };
 
+        // Konfidenzintervall
+        //worksheet.getRow(statsStartRow + 3).getCell(colIndex + 1).value =  `=KONFIDENZ.NORM(0,05;STABW.S(${dataRange});ANZAHL(${dataRange}))`;
+        worksheet.getRow(statsStartRow + 4).getCell(colIndex + 1).value = { formula: `=AVERAGE(${dataRange}) + 1.96 * SQRT(SUMPRODUCT((${dataRange}-AVERAGE(${dataRange}))^2) / (COUNTA(${dataRange}) - 1)) / SQRT(COUNTA(${dataRange}))` };
+        worksheet.getRow(statsStartRow + 5).getCell(colIndex + 1).value = { formula: `=AVERAGE(${dataRange}) - 1.96 * SQRT(SUMPRODUCT((${dataRange}-AVERAGE(${dataRange}))^2) / (COUNTA(${dataRange}) - 1)) / SQRT(COUNTA(${dataRange}))` };
+
+        worksheet.getRow(statsStartRow + 7).getCell(colIndex + 1).value = { formula: `=AVERAGE(${dataRange}) + 2.58 * SQRT(SUMPRODUCT((${dataRange}-AVERAGE(${dataRange}))^2) / (COUNTA(${dataRange}) - 1)) / SQRT(COUNTA(${dataRange}))` };
+        worksheet.getRow(statsStartRow + 8).getCell(colIndex + 1).value = { formula: `=AVERAGE(${dataRange}) - 2.58 * SQRT(SUMPRODUCT((${dataRange}-AVERAGE(${dataRange}))^2) / (COUNTA(${dataRange}) - 1)) / SQRT(COUNTA(${dataRange}))` };
+
+        worksheet.getRow(statsStartRow + 10).getCell(colIndex + 1).value =  `=KONFIDENZ.NORM(0,05;STABW.S(${dataRange});ANZAHL(${dataRange}))`;
+        worksheet.getRow(statsStartRow + 11).getCell(colIndex + 1).value =  `=KONFIDENZ.NORM(0,01;STABW.S(${dataRange});ANZAHL(${dataRange}))`;
+
+
         // Zahlenformatierung
         worksheet.getRow(statsStartRow).getCell(colIndex + 1).numFmt = '#,##0.00';
         worksheet.getRow(statsStartRow + 1).getCell(colIndex + 1).numFmt = '#,##0.00';
         worksheet.getRow(statsStartRow + 2).getCell(colIndex + 1).numFmt = '#,##0.00';
+
+        worksheet.getRow(statsStartRow + 4).getCell(colIndex + 1).numFmt = '#,##0.00';
+        worksheet.getRow(statsStartRow + 5).getCell(colIndex + 1).numFmt = '#,##0.00';
+        worksheet.getRow(statsStartRow + 7).getCell(colIndex + 1).numFmt = '#,##0.00';
+        worksheet.getRow(statsStartRow + 8).getCell(colIndex + 1).numFmt = '#,##0.00';
       }
     });
 
@@ -142,6 +159,12 @@ const convertToExcel = async () => {
     worksheet.getRow(statsStartRow).getCell(lastColumn).value = 'Durchschnitt';
     worksheet.getRow(statsStartRow + 1).getCell(lastColumn).value = 'Maximum';
     worksheet.getRow(statsStartRow + 2).getCell(lastColumn).value = 'Minimum';
+
+    worksheet.getRow(statsStartRow + 4).getCell(lastColumn).value = 'Konfidenzintervall 95% (oben)';
+    worksheet.getRow(statsStartRow + 5).getCell(lastColumn).value = 'Konfidenzintervall 95% (unten)';
+
+    worksheet.getRow(statsStartRow + 7).getCell(lastColumn).value = 'Konfidenzintervall 99% (oben)';
+    worksheet.getRow(statsStartRow + 8).getCell(lastColumn).value = 'Konfidenzintervall 99% (unten)';
 
     // Farben für die Statistiken anwenden
     worksheet.getRow(statsStartRow).eachCell((cell) => {
